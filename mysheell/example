@@ -1,0 +1,6 @@
+#! /bin/sh
+echo "firs shell example"
+
+/bin/pwd
+
+/bin/ls

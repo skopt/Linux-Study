@@ -1,0 +1,23 @@
+OUTS		 := ./out
+OBJ_SUFFIX	:= .o
+SRC_SUFFIX	:= .c
+
+APPLE_DIR  :=./apple/src
+
+SRCS	:=$(wildcard *$(SRC_SUFFIX) $(APPLE_DIR)/*$(SRC_SUFFIX))
+DIR	:=$(notdir $(SRCS))
+OBJECT	 := $(patsubst %$(SRC_SUFFIX),$(OUT)/%$(OBJ_SUFFIX),$(DIR))
+OBJECTS	 := $(addprefix $(OUTS), $(OBJECT))
+#all:hello
+#	@echo $(SRCS)
+#	@echo $(DIR)
+#	@echo $(object)
+#	@echo $(objects)
+
+hello:$(OBJECTS)
+	cc -o hello $(OBJECTS)
+$(OUTS)/main.o:main.c
+	cc -c main.c -Iapple/include -o $@
+include apple/build/apple.mk
+clean: 
+	rm hello -rf $(OUTS)/*.o
